@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "siteTitle": "Rahul V R | Actor, Content Creator, Performer",
+    "seoDescription": "Official portfolio of Rahul V R — actor, content creator and performer from Trivandrum, Kerala. Currently working on the Telugu feature film LIFE.",
+    "seoKeywords": "Rahul V R, actor Kerala, Trivandrum actor, Telugu film LIFE, content creator, reels artist",
+    "favicon": "media/images/favicon.png"
+  },
+  "sectionOrder": [
+    "home",
+    "about",
+    "journey",
+    "videos",
+    "skills",
+    "currentProject",
+    "portfolio",
+    "shortFilm",
+    "gallery",
+    "contact"
+  ],
+  "sectionVisibility": {
+    "home": true,
+    "about": true,
+    "journey": true,
+    "portfolio": true,
+    "videos": true,
+    "currentProject": true,
+    "skills": true,
+    "contact": true,
+    "gallery": true,
+    "shortFilm": true
+  },
+  "home": {
+    "name": "Rahul V R",
+    "headline": "Actor | Content Creator | Performer",
+    "tagline": "Bringing stories to life, one frame at a time.",
+    "portraitImage": "media/images/1790513173848-IMG_0083.JPG.jpeg",
+    "showreelVideo": "",
+    "showreelThumbnail": "media/images/PLACEHOLDER-showreel-thumb.jpg",
+    "ctaWatchText": "Watch Showreel",
+    "ctaContactText": "Contact for Projects"
+  },
+  "about": {
+    "heading": "About Rahul",
+    "age": 26,
+    "location": "Trivandrum, Kerala",
+    "education": "B.Tech Graduate",
+    "languages": [
+      "Malayalam",
+      "English",
+      "Tamil"
+    ],
+    "bio": "Rahul V R comes from a background in app development and sales, but acting has always been his true passion. What began as a creative outlet during the Covid lockdown — making short videos on TikTok — steadily grew into a dedicated pursuit of performance. He carried that momentum onto Instagram Reels, building an audience through consistent, expressive content, and has since turned that experience into a growing career in acting.",
+    "profileImage": "media/images/1790513288910-IMG_0080.JPG.jpeg"
+  },
+  "journey": {
+    "heading": "The Journey",
+    "milestones": [
+      {
+        "year": "PLACEHOLDER-YEAR",
+        "title": "A Background in Tech and Sales",
+        "description": "Before stepping into performance, Rahul built a foundation in app development and sales — experience that sharpened his discipline and communication skills."
+      },
+      {
+        "year": "PLACEHOLDER-YEAR (Covid lockdown)",
+        "title": "First Steps on TikTok",
+        "description": "During the Covid lockdown, Rahul began creating short videos on TikTok, discovering a genuine passion for performing in front of the camera."
+      },
+      {
+        "year": "PLACEHOLDER-YEAR",
+        "title": "Growing on Instagram Reels",
+        "description": "He continued honing his craft through reels on Instagram, gradually developing his voice as a performer and content creator."
+      },
+      {
+        "year": "PLACEHOLDER-YEAR",
+        "title": "Turning Passion into a Career",
+        "description": "What started as content creation evolved into a professional pursuit of acting, opening the door to on-screen opportunities."
+      }
+    ]
+  },
+  "portfolio": {
+    "heading": "Acting Portfolio",
+    "subheading": "A growing collection of projects and performances.",
+    "projects": [
+      {
+        "id": "project-placeholder-1",
+        "title": "PLACEHOLDER Project Title",
+        "role": "PLACEHOLDER Role",
+        "year": "PLACEHOLDER",
+        "description": "PLACEHOLDER description of the project.",
+        "credits": "PLACEHOLDER credits (director, production house, etc.)",
+        "coverImage": "media/images/1790524356727-IMG_0042.JPG.jpeg",
+        "images": [],
+        "videos": []
+      },
+      {
+        "id": "project-1790518002685",
+        "title": "Portfolio 2",
+        "role": "Character Role",
+        "year": "2025",
+        "description": "PLACEHOLDER Role",
+        "credits": "Director, production house, etc.",
+        "coverImage": "media/images/1790524208445-IMG_5671.JPG.jpeg",
+        "images": [],
+        "videos": []
+      }
+    ]
+  },
+  "videos": {
+    "heading": "Videos & Reels",
+    "subheading": "Selected reels and video work.",
+    "items": [
+      {
+        "title": "A sample video - unrelated",
+        "description": "A sample video - unrelated video for checking purpose",
+        "thumbnail": "media/images/1790515235112-IMG_0086.JPG.jpeg",
+        "videoUrl": "https://www.youtube.com/watch?v=0Jx3SqMbyEo&list=RDgLuESPBgw2I&index=9"
+      },
+      {
+        "title": "2nd video",
+        "description": "a sample video 2nd checking",
+        "thumbnail": "media/images/1790517119676-IMG_0042.JPG.jpeg",
+        "videoUrl": "https://www.youtube.com/watch?v=0Jx3SqMbyEo&list=RDgLuESPBgw2I&index=9"
+      },
+      {
+        "title": "3rd video",
+        "description": "3rd video for checking",
+        "thumbnail": "media/images/1790517090170-IMG_0226.JPG.jpeg",
+        "videoUrl": "https://www.youtube.com/watch?v=gLuESPBgw2I&list=RDgLuESPBgw2I&start_radio=1"
+      },
+      {
+        "title": "4th video ",
+        "description": "4th video for checking",
+        "thumbnail": "media/images/1790517399672-IMG_6637.JPG.jpeg",
+        "videoUrl": "https://www.youtube.com/watch?v=hovezwINQMo&list=RDhovezwINQMo&start_radio=1&rv=FcghOxkPIsA"
+      },
+      {
+        "title": "5th video",
+        "description": "5th video checking",
+        "thumbnail": "media/images/1790524041926-IMG_8333.PNG",
+        "videoUrl": "https://www.youtube.com/watch?v=0QAKKYJJ2l0&list=RDgLuESPBgw2I&index=10"
+      }
+    ]
+  },
+  "currentProject": {
+    "heading": "Current Projects",
+    "subheading": "What Rahul is working on right now.",
+    "items": [
+      {
+        "id": "project-1",
+        "title": "LIFE",
+        "status": "Upcoming",
+        "language": "Telugu",
+        "type": "Feature Film",
+        "description": "Rahul is currently working on LIFE, an upcoming Telugu feature film. Further details about the project will be shared closer to release.",
+        "photos": [
+          "media/images/1790517616122-IMG_0184.JPG.jpeg",
+          "media/images/1790682394067-IMG_0084.JPG.jpeg",
+          "media/images/1790682402944-IMG_0042.JPG.jpeg"
+        ],
+        "youtubeLink": "https://www.youtube.com/watch?v=q_llhP8AIjc&list=RDq_llhP8AIjc&start_radio=1"
+      },
+      {
+        "id": "project-1790682411371",
+        "title": "2nd Sample Current Work",
+        "status": "Upcoming",
+        "language": "",
+        "type": "Feature Film",
+        "description": "2nd Sample Current Work -  A sample description",
+        "photos": [
+          "media/images/1790682833267-IMG_8333.PNG",
+          "media/images/1790682843590-IMG_5671.JPG.jpeg",
+          "media/images/1790682850955-IMG_0086.JPG.jpeg"
+        ],
+        "youtubeLink": "https://www.youtube.com/watch?v=Yxx-zTuw1xE&list=RDYxx-zTuw1xE&start_radio=1"
+      }
+    ]
+  },
+  "skills": {
+    "heading": "Skills",
+    "items": [
+      "Acting",
+      "Lip-sync Performance",
+      "Dialogue Delivery",
+      "Content Creation",
+      "Dancing",
+      "Communication",
+      "Easily adaptable"
+    ],
+    "openTo": [
+      "Feature Films",
+      "Web Series",
+      "Short Films",
+      "Music Videos",
+      "OTT Projects",
+      "Advertisements"
+    ]
+  },
+  "contact": {
+    "heading": "Get in Touch",
+    "subheading": "Open for feature films, web series, short films, music videos, OTT projects and advertisements.",
+    "phone": "+91 90720 99361",
+    "whatsapp": "https://wa.me/919072099361",
+    "email": "acharyar440@gmail.com",
+    "instagram": "https://www.instagram.com/thangu____"
+  },
+  "gallery": {
+    "heading": "Gallery",
+    "subheading": "A look behind the scenes and on set.",
+    "items": [
+      {
+        "image": "media/images/1790683060881-IMG_8333.PNG",
+        "title": "",
+        "description": ""
+      },
+      {
+        "image": "media/images/1790683054340-IMG_0184.JPG.jpeg",
+        "title": "",
+        "description": ""
+      },
+      {
+        "image": "media/images/1790684214476-IMG_0042.JPG.jpeg",
+        "title": "",
+        "description": ""
+      },
+      {
+        "image": "media/images/1790685411074-IMG_0084.JPG.jpeg",
+        "title": "",
+        "description": ""
+      }
+    ]
+  },
+  "shortFilm": {
+    "heading": "Short Films",
+    "subheading": "Short film work.",
+    "items": [
+      {
+        "title": "Our new short film - The End Game",
+        "role": "Lead Actor",
+        "year": "2025",
+        "description": "Our new short film - The End Game\nWritten, Directed and Produced by Rahul RV",
+        "photos": [
+          "media/images/1790682269987-IMG_0226.JPG.jpeg",
+          "media/images/1790682277542-IMG_0042.JPG.jpeg"
+        ],
+        "videoLink": "https://www.youtube.com/watch?v=RsY1uHr3Ztc&list=RDRsY1uHr3Ztc&start_radio=1"
+      }
+    ]
+  }
+}

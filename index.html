@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rahul V R | Actor, Content Creator, Performer</title>
+<meta name="description" content="Official portfolio of Rahul V R — actor, content creator and performer from Trivandrum, Kerala.">
+<link rel="icon" href="media/images/favicon.png" id="favicon-link">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="#home" class="nav-brand">Rahul V R</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#shortFilm">Short Films</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#currentProject">Current Project</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="app">
+  <!-- Sections are rendered here by js/main.js from content/site-content.json -->
+  <div class="container" style="padding-top:140px;text-align:center;color:#b7b5ad">Loading…</div>
+</main>
+
+<footer>
+  <div class="container">
+    <span id="footerText">&copy; <span id="footerYear"></span> Rahul V R. All rights reserved.</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous photo" style="display:none">&#10094;</button>
+  <div class="lightbox-content" id="lightboxContent"></div>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Next photo" style="display:none">&#10095;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
