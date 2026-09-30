@@ -208,24 +208,19 @@
     "subheading": "A look behind the scenes and on set.",
     "items": [
       {
-        "image": "media/images/1790683060881-IMG_8333.PNG",
-        "title": "",
-        "description": ""
+        "image": "media/images/1790751869496-IMG_0083.JPG.jpeg",
+        "title": "Img 1",
+        "description": "Sampe Caption"
       },
       {
-        "image": "media/images/1790683054340-IMG_0184.JPG.jpeg",
-        "title": "",
-        "description": ""
+        "image": "media/images/1790751907683-IMG_0184.JPG.jpeg",
+        "title": "Img 2",
+        "description": "Sample Caption"
       },
       {
-        "image": "media/images/1790684214476-IMG_0042.JPG.jpeg",
-        "title": "",
-        "description": ""
-      },
-      {
-        "image": "media/images/1790685411074-IMG_0084.JPG.jpeg",
-        "title": "",
-        "description": ""
+        "image": "media/images/1790751951306-IMG_0086.JPG.jpeg",
+        "title": "Img 3",
+        "description": "Sample Caption"
       }
     ]
   },
