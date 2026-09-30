@@ -110,6 +110,16 @@
     ));
   }
 
+  const ICONS = {
+    phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+    email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.02 3a8.94 8.94 0 0 0-7.7 13.42L3 21l4.7-1.23a8.94 8.94 0 0 0 4.33 1.1h0a8.94 8.94 0 0 0 8.9-8.94 8.87 8.87 0 0 0-3.33-6.6zm-5.58 13.74h0a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.8.73.75-2.73-.18-.28a7.42 7.42 0 0 1 11.7-9.14 7.36 7.36 0 0 1 2.18 5.25 7.42 7.42 0 0 1-7.6 7.37zm4.07-5.56c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.05a6.06 6.06 0 0 1-1.78-1.1 6.68 6.68 0 0 1-1.23-1.53c-.13-.22 0-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87s.81 2.17.92 2.32c.11.15 1.6 2.44 3.87 3.42a13 13 0 0 0 1.29.48c.54.17 1.03.15 1.42.09.43-.06 1.3-.53 1.49-1.04.18-.51.18-.95.13-1.04-.05-.1-.2-.15-.42-.26z"/></svg>`,
+    instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>`
+  };
+  function icon(name) {
+    return ICONS[name] || "";
+  }
+
   function isDirectVideo(url) {
     return /\.(mp4|webm|mov)$/i.test(url || "");
   }
@@ -367,22 +377,22 @@
         </div>
         <div class="contact-grid">
           <a class="contact-card" href="tel:${esc(d.phone)}">
-            <div class="icon">&#128222;</div>
+            <div class="icon">${icon("phone")}</div>
             <div class="label">Phone</div>
             <div class="value">${esc(d.phone)}</div>
           </a>
           <a class="contact-card" href="${esc(d.whatsapp)}" target="_blank" rel="noopener">
-            <div class="icon">&#128172;</div>
+            <div class="icon">${icon("whatsapp")}</div>
             <div class="label">WhatsApp</div>
             <div class="value">Message on WhatsApp</div>
           </a>
           <a class="contact-card" href="mailto:${esc(d.email)}">
-            <div class="icon">&#9993;</div>
+            <div class="icon">${icon("email")}</div>
             <div class="label">Email</div>
             <div class="value">${esc(d.email)}</div>
           </a>
           <a class="contact-card" href="${esc(d.instagram)}" target="_blank" rel="noopener">
-            <div class="icon">&#128247;</div>
+            <div class="icon">${icon("instagram")}</div>
             <div class="label">Instagram</div>
             <div class="value">@thangu____</div>
           </a>
@@ -486,10 +496,10 @@
     if (navSocial && content.contact) {
       const c = content.contact;
       let icons = "";
-      if (c.instagram) icons += `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" aria-label="Instagram">&#128247;</a>`;
-      if (c.whatsapp) icons += `<a href="${esc(c.whatsapp)}" target="_blank" rel="noopener" aria-label="WhatsApp">&#128172;</a>`;
-      if (c.email) icons += `<a href="mailto:${esc(c.email)}" aria-label="Email">&#9993;</a>`;
-      if (c.phone) icons += `<a href="tel:${esc(c.phone)}" aria-label="Call">&#128222;</a>`;
+      if (c.instagram) icons += `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" aria-label="Instagram">${icon("instagram")}</a>`;
+      if (c.whatsapp) icons += `<a href="${esc(c.whatsapp)}" target="_blank" rel="noopener" aria-label="WhatsApp">${icon("whatsapp")}</a>`;
+      if (c.email) icons += `<a href="mailto:${esc(c.email)}" aria-label="Email">${icon("email")}</a>`;
+      if (c.phone) icons += `<a href="tel:${esc(c.phone)}" aria-label="Call">${icon("phone")}</a>`;
       navSocial.innerHTML = icons;
     }
 
