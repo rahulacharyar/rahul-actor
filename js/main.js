@@ -150,26 +150,61 @@
     return `<video src="${esc(src)}" controls playsinline style="width:100%;border-radius:8px;border:1px solid var(--line)"></video>`;
   }
 
-  function lazyImg(src, alt, cls) {
-    return `<img data-lazy="${esc(src)}" alt="${esc(alt || "")}" class="skeleton ${cls || ""}" loading="lazy">`;
+  // Turn a YouTube link pasted in an image field into its thumbnail, so cards never get a non-image URL.
+  function resolveImageSrc(src) {
+    const u = String(src || "").trim();
+    if (!u) return "";
+    const m = u.match(/(?:youtube\.com\/watch\?(?:[^#]*&)?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/i);
+    if (m) return "https://img.youtube.com/vi/" + m[1] + "/hqdefault.jpg";
+    return u;
   }
+
+  function lazyImg(src, alt, cls) {
+    return `<img data-lazy="${esc(resolveImageSrc(src))}" alt="${esc(alt || "")}" class="skeleton ${cls || ""}" decoding="async">`;
+  }
+
+  // Loads one image, retrying a few times (a freshly uploaded file can 404 for a minute or two
+  // until GitHub Pages finishes publishing it). Never leaves the shimmer running forever.
+  const IMG_MAX_RETRIES = 4;
+  function loadLazyImage(img) {
+    const base = img.dataset.lazy;
+    if (!base) { img.classList.remove("skeleton"); img.classList.add("img-failed"); return; }
+    let attempt = 0;
+    img.addEventListener("load", () => img.classList.remove("skeleton", "img-failed"));
+    img.addEventListener("error", () => {
+      attempt++;
+      if (attempt > IMG_MAX_RETRIES) {
+        img.classList.remove("skeleton");
+        img.classList.add("img-failed");
+        return;
+      }
+      setTimeout(() => {
+        img.src = base + (base.indexOf("?") > -1 ? "&" : "?") + "r=" + Date.now();
+      }, attempt * 1500);
+    });
+    img.retryNow = () => { attempt = 0; img.classList.add("skeleton"); img.src = base + (base.indexOf("?") > -1 ? "&" : "?") + "r=" + Date.now(); };
+    img.src = base;
+  }
+
+  // If the connection drops and comes back, retry any image that gave up.
+  window.addEventListener("online", () => {
+    document.querySelectorAll("img.img-failed").forEach((img) => { if (img.retryNow) img.retryNow(); });
+  });
 
   function applyLazyLoading(root) {
     const imgs = root.querySelectorAll("img[data-lazy]");
     if (!("IntersectionObserver" in window)) {
-      imgs.forEach((img) => { img.src = img.dataset.lazy; img.classList.remove("skeleton"); });
+      imgs.forEach(loadLazyImage);
       return;
     }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.lazy;
-          img.addEventListener("load", () => img.classList.remove("skeleton"), { once: true });
-          io.unobserve(img);
+          io.unobserve(entry.target);
+          loadLazyImage(entry.target);
         }
       });
-    }, { rootMargin: "200px" });
+    }, { rootMargin: "300px" });
     imgs.forEach((img) => io.observe(img));
   }
 
@@ -262,6 +297,7 @@
           <h3>${esc(p.title)}</h3>
           <div class="card-meta">${esc(p.role)}${p.year ? " · " + esc(p.year) : ""}</div>
           <p>${esc(p.description)}</p>
+          ${p.credits ? `<div class="card-credits">${esc(p.credits)}</div>` : ""}
         </div>
       </div>`).join("");
     return `

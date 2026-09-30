@@ -277,3 +277,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;text-align:center;color:v
 @keyframes sk{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
 .hidden-section{display:none !important}
+
+/* Image load failure: hide the broken-image icon, keep the dark card background */
+img.img-failed{visibility:hidden}
+.card-credits{font-size:.8rem;color:var(--text-dim);opacity:.8;margin-top:10px}
