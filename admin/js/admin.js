@@ -2,7 +2,16 @@
   "use strict";
 
   const API_BASE = (window.SITE_CONFIG && window.SITE_CONFIG.API_BASE_URL) || "";
+  const GITHUB_REPO = (window.SITE_CONFIG && window.SITE_CONFIG.GITHUB_REPO) || "";
   const CONTENT_URL = "../content/site-content.json";
+
+  // Raw GitHub content shows up within seconds of a commit — much faster than waiting
+  // for the site itself to rebuild — so admin previews use this instead of relative paths.
+  function rawUrl(path) {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${path}`;
+  }
 
   const loginView = document.getElementById("loginView");
   const dashboardView = document.getElementById("dashboardView");
@@ -93,7 +102,7 @@
   async function loadContent() {
     sectionContent.innerHTML = `<div class="empty-note">Loading content…</div>`;
     try {
-      const res = await fetch(CONTENT_URL, { cache: "no-store" });
+      const res = await fetch(CONTENT_URL + "?v=" + Date.now(), { cache: "no-store" });
       draft = await res.json();
     } catch (err) {
       sectionContent.innerHTML = `<div class="empty-note">Could not load content/site-content.json.</div>`;
@@ -120,10 +129,17 @@
         </span>
         <span class="vis-toggle ${visible ? "" : "off"}" data-toggle-vis="${key}">${visible ? "Shown" : "Hidden"}</span>
       </div>`;
-    }).join("");
+    }).join("") + `
+      <div class="nav-item ${activeSection === "__media__" ? "active" : ""}" style="margin-top:14px;border-top:1px solid var(--line);padding-top:16px">
+        <span class="nav-label" data-select="__media__">🗑 Media Library</span>
+      </div>`;
 
     sectionNav.querySelectorAll("[data-select]").forEach((el) => {
-      el.addEventListener("click", () => { activeSection = el.dataset.select; renderSidebar(); renderSection(activeSection); });
+      el.addEventListener("click", () => {
+        activeSection = el.dataset.select;
+        renderSidebar();
+        activeSection === "__media__" ? renderMediaLibrary() : renderSection(activeSection);
+      });
     });
     sectionNav.querySelectorAll("[data-move]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -172,9 +188,9 @@
     const isVideoFile = kind === "video" && value && !value.startsWith("http");
     let previewHtml = "";
     if (value && kind !== "video") {
-      previewHtml = `<img class="media-preview" src="../${value}" onerror="this.style.display='none'">`;
+      previewHtml = `<img class="media-preview" src="${rawUrl(value)}" onerror="this.style.display='none'">`;
     } else if (isVideoFile) {
-      previewHtml = `<video class="media-preview" src="../${value}" controls></video>`;
+      previewHtml = `<video class="media-preview" src="${rawUrl(value)}" controls></video>`;
     } else if (value && value.startsWith("http")) {
       previewHtml = `<div class="muted" style="margin-bottom:8px">Linked: ${value}</div>`;
     }
@@ -260,7 +276,7 @@
       photos.forEach((src, i) => {
         const item = document.createElement("div");
         item.className = "gallery-editor-item";
-        item.innerHTML = `<img src="../${src}"><button data-i="${i}">✕</button>`;
+        item.innerHTML = `<img src="${rawUrl(src)}"><button data-i="${i}">✕</button>`;
         item.querySelector("button").addEventListener("click", () => {
           photos.splice(i, 1);
           onChange(photos);
@@ -558,6 +574,81 @@
       return [c];
     }
   };
+
+  function formatBytes(n) {
+    if (n < 1024) return n + " B";
+    if (n < 1024 * 1024) return (n / 1024).toFixed(0) + " KB";
+    return (n / 1024 / 1024).toFixed(1) + " MB";
+  }
+
+  async function renderMediaLibrary() {
+    sectionContent.innerHTML = `<div class="empty-note">Loading media…</div>`;
+    let files;
+    try {
+      const res = await api("/api/media-list");
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Could not load media");
+      files = (await res.json()).files || [];
+    } catch (err) {
+      sectionContent.innerHTML = `<div class="empty-note">Could not load media library: ${err.message}</div>`;
+      return;
+    }
+
+    const card = sectionCard("Media Library");
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.style.marginTop = "-8px";
+    note.textContent = "Only delete photos or videos that are no longer used anywhere on the site — deleting one still in use will leave a broken image there.";
+    card.appendChild(note);
+
+    if (!files.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty-note";
+      empty.textContent = "No uploaded media yet.";
+      card.appendChild(empty);
+    } else {
+      const grid = document.createElement("div");
+      grid.className = "gallery-editor-grid";
+      grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(120px, 1fr))";
+      files.forEach((f) => {
+        const isVideo = f.path.startsWith("media/videos/");
+        const item = document.createElement("div");
+        item.className = "gallery-editor-item";
+        item.style.aspectRatio = "1/1";
+        item.innerHTML = isVideo
+          ? `<video src="${rawUrl(f.path)}" muted></video><button data-path="${f.path}">✕</button>`
+          : `<img src="${rawUrl(f.path)}"><button data-path="${f.path}">✕</button>`;
+        const label = document.createElement("div");
+        label.className = "muted";
+        label.style.fontSize = ".7rem";
+        label.style.marginTop = "2px";
+        label.style.wordBreak = "break-all";
+        label.textContent = `${f.name} (${formatBytes(f.size)})`;
+        const wrap = document.createElement("div");
+        wrap.appendChild(item);
+        wrap.appendChild(label);
+        grid.appendChild(wrap);
+
+        item.querySelector("button").addEventListener("click", async () => {
+          if (!confirm(`Delete ${f.name}? This can't be undone.`)) return;
+          try {
+            const res = await api("/api/media-delete", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ path: f.path })
+            });
+            if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Delete failed");
+            renderMediaLibrary();
+          } catch (err) {
+            alert("Could not delete: " + err.message);
+          }
+        });
+      });
+      card.appendChild(grid);
+    }
+
+    sectionContent.innerHTML = "";
+    sectionContent.appendChild(card);
+  }
 
   function renderSection(key) {
     sectionContent.innerHTML = "";

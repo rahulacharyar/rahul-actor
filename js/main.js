@@ -481,6 +481,18 @@
     const favicon = document.getElementById("favicon-link");
     if (favicon && content.meta.favicon) favicon.setAttribute("href", content.meta.favicon);
 
+    // Small header icons next to the name, built from the Contact section's info
+    const navSocial = document.getElementById("navSocial");
+    if (navSocial && content.contact) {
+      const c = content.contact;
+      let icons = "";
+      if (c.instagram) icons += `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" aria-label="Instagram">&#128247;</a>`;
+      if (c.whatsapp) icons += `<a href="${esc(c.whatsapp)}" target="_blank" rel="noopener" aria-label="WhatsApp">&#128172;</a>`;
+      if (c.email) icons += `<a href="mailto:${esc(c.email)}" aria-label="Email">&#9993;</a>`;
+      if (c.phone) icons += `<a href="tel:${esc(c.phone)}" aria-label="Call">&#128222;</a>`;
+      navSocial.innerHTML = icons;
+    }
+
     const order = content.sectionOrder || Object.keys(RENDERERS);
     const visibility = content.sectionVisibility || {};
     let html = "";
@@ -594,7 +606,7 @@
       $app.innerHTML = `<div class="container" style="padding-top:140px;text-align:center;color:#b7b5ad">Could not read draft.</div>`;
     }
   } else {
-    fetch(CONTENT_URL, { cache: "no-store" })
+    fetch(CONTENT_URL + "?v=" + Date.now(), { cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load content");
         return r.json();

@@ -44,4 +44,30 @@ async function putFile(path, contentBase64, message, sha) {
   return res.json();
 }
 
-module.exports = { getFile, putFile };
+async function listDir(path) {
+  const owner = config.GITHUB_OWNER();
+  const repo = config.GITHUB_REPO();
+  const branch = config.GITHUB_BRANCH();
+  const url = `${API_ROOT}/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${branch}`;
+  const res = await fetch(url, { headers: authHeaders() });
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`GitHub listDir failed (${res.status}): ${await res.text()}`);
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
+}
+
+async function deleteFile(path, sha, message) {
+  const owner = config.GITHUB_OWNER();
+  const repo = config.GITHUB_REPO();
+  const branch = config.GITHUB_BRANCH();
+  const url = `${API_ROOT}/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: Object.assign({ "Content-Type": "application/json" }, authHeaders()),
+    body: JSON.stringify({ message: message || `Delete ${path} via admin panel`, sha, branch })
+  });
+  if (!res.ok) throw new Error(`GitHub deleteFile failed (${res.status}): ${await res.text()}`);
+  return res.json();
+}
+
+module.exports = { getFile, putFile, listDir, deleteFile };
